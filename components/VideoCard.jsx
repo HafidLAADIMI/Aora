@@ -20,33 +20,16 @@ const VideoCard = ({
   const id=$id;
   const { user } = UseGlobalContext();
   const [isClicked, setIsClicked] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const updatedPost ={
-    title:title ,
-    video:video ,
-    thumbnail:thumbnail ,
-    prompt:prompt ,
-    saved:saved,
-    userId: user?.documents[0].$id
-  };
+;
   const [uploading, setUploading] = useState(false);
-  const submit = async () => {
-    setSaved(true);
-    if (!updatedPost) {
-      Alert.alert("there was an error in saving the post");
-    }
-    setUploading(true);
+   const toggleSave=async()=>{
     try {
-      await savePost(updatedPost,id);
-      Alert.alert("Successful save", "video saved successfuly");
+      await savePost(id, user?.documents[0].$id)
     } catch (error) {
-      console.log(error);
-      throw new Error("error", error.message);
-    } finally {
-      setUploading(false);
+      console.log(error.message);
+      throw new Error("error",error.message)
     }
-  };
-  
+   }
 
   return (
     <View className="flex flex-col items-center px-4 mb-14">
@@ -77,7 +60,7 @@ const VideoCard = ({
         <TouchableOpacity onPress={()=>setIsClicked(!isClicked)} className="pt-2">
           <Image source={icons.menu} className="h-5 w-5" resizeMode="contain" />
         </TouchableOpacity >
-        <TouchableOpacity onPress={submit} className={`${isClicked?"flex":"hidden"}  items-center justify-center h-8 w-16 rounded-lg shadow-sm bg-whites shadow-black-100 absolute right-6 bg-white `}>
+        <TouchableOpacity onPress={toggleSave} className={`${isClicked?"flex":"hidden"}  items-center justify-center h-8 w-16 rounded-lg shadow-sm bg-whites shadow-black-100 absolute right-6 bg-white `}>
           <Text className="text-black-100 font-psemibold text-xs text-center">
             save
           </Text>

@@ -18,10 +18,10 @@ import VideoCard from "../../components/VideoCard";
 import { UseGlobalContext } from "../../context/GlobalContext";
 const BookMark = () => {
   
-  const {data:posts,refresh}=useAppwrite(getSavedPosts);
+  const { user } = UseGlobalContext();
+  const {data:posts,refresh}=useAppwrite(()=>getSavedPosts(user?.documents[0]?.$id));
   console.log("saved videos "+posts)
   const [isRefresh, setIsRefresh] = useState(false);
-  const { user } = UseGlobalContext();
   
   
   const onRefresh = async () => {

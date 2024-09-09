@@ -13,7 +13,7 @@ import { StatusBar } from "expo-status-bar";
 const Profile = () => {
   const { user, setUser, setIsLogged } = UseGlobalContext();
   const { data: posts } = useAppwrite(() =>
-    getUserPosts(user?.documents[0].$id)
+    getUserPosts(user?.documents[0]?.$id)
   );
 
   const logOut = async () => {
@@ -42,13 +42,13 @@ const Profile = () => {
             </TouchableOpacity>
             <View className="flex justify-center items-center w-16 h-16 border border-secondary rounded-lg ">
               <Image
-                source={{ uri: user?.documents[0].avatar }}
+                source={{ uri: user?.documents[0]?.avatar }}
                 className="h-[90%] w-[90%] rounded-lg"
                 resizeMode="contain"
               />
             </View>
             <InofBox
-              title={user.documents[0].username}
+              title={user?.documents[0]?.username}
               containerStyles="mt-5"
               titleStyles="text-lg"
             />

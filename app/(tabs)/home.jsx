@@ -22,6 +22,7 @@ const Home = () => {
   const {data:latestPosts}=useAppwrite(getLatestPosts);
   const [isRefresh, setIsRefresh] = useState(false);
   const { user } = UseGlobalContext();
+  console.log(user);
   const onRefresh = async () => {
     setIsRefresh(true);
       await refresh();
@@ -43,7 +44,7 @@ const Home = () => {
                   Welcome back
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                 {user?.documents[0].username}
+                 {user?.documents[0]?.username}
                  
                 </Text>
               </View>
